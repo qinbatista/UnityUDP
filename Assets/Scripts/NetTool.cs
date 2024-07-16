@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 public class NetTool
 {
-    public static int port  = 8889;
+    public static int port  = 8888;
     public static string GetLocalIPAddress()
     {
         IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
