@@ -1,0 +1,34 @@
+{
+    "name": "InputSystem",
+    "maps": [
+        {
+            "name": "UIMap",
+            "id": "3fff175f-57a1-4e6e-b100-fd0d08ff58b0",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Value",
+                    "id": "9300fe52-9da5-42ff-afd2-fa8f82ae63dd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "82caa265-d93c-4591-91d1-d26790feb615",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

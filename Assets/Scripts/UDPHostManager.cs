@@ -10,12 +10,11 @@ public class UDPHostManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     UdpClient udpClient;
     Thread receiveThread;
-    const int listenPort = 8888;
     public string ipAddressText;
-    void Awake()
+    void Start()
     {
         Debug.Log("UDPHostManager is running, IP:" + ipAddressText != null ? "IP Address: " + NetTool.GetLocalIPAddress() : "No Text component assigned to display the IP address.");
-        udpClient = new UdpClient(listenPort);
+        udpClient = new UdpClient(NetTool.port);
         receiveThread = new Thread(new ThreadStart(ReceiveData))
         {
             IsBackground = true
@@ -25,7 +24,7 @@ public class UDPHostManager : MonoBehaviour
 
     void ReceiveData()
     {
-        IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, listenPort);
+        IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, NetTool.port);
         while (true)
         {
             try
@@ -34,15 +33,14 @@ public class UDPHostManager : MonoBehaviour
                 string message = Encoding.UTF8.GetString(data);
                 Debug.Log("Message received: " + message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Debug.LogError("Error receiving data: " + ex.Message);
+                // Debug.LogError("Error receiving data: " + ex.Message);
             }
         }
     }
     void OnApplicationQuit()
     {
-        if (receiveThread != null)
-            receiveThread.Abort();
+        if (receiveThread != null) receiveThread.Abort();
     }
 }
