@@ -41,6 +41,10 @@ public class UDPHostManager : MonoBehaviour
     }
     void OnApplicationQuit()
     {
-        if (receiveThread != null) receiveThread.Abort();
+        if (receiveThread != null)
+        {
+            Debug.Log("UDPHostManager is closing.");
+            receiveThread.Abort();
+        }
     }
 }

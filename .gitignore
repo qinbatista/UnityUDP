@@ -4,3 +4,6 @@ Logs
 Temp
 *.csproj
 *.sln
+.vs
+obj
+.vsconfig
