@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class UDPClientManager : MonoBehaviour
 {
-    private UdpClient udpClient;
+    private UdpClient udpClient = null;
     void Awake()
     {
-        if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.LinuxEditor)
-        {
-            Destroy(this);
-        }
+        if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.LinuxEditor) return;
+
+        Debug.Log("UDPClientManager is started," + NetTool.serverIp + ":" + NetTool.port);
         udpClient = new UdpClient(NetTool.port);
     }
     void SendData(string message)
@@ -41,4 +40,5 @@ public class UDPClientManager : MonoBehaviour
     {
         SendData("+1");
     }
+
 }

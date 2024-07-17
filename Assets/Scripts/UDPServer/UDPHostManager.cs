@@ -3,23 +3,29 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UDPHostManager : MonoBehaviour
+public class UDPHostManager : Singleton<UDPHostManager>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    UdpClient udpClient;
-    Thread receiveThread;
-    public string ipAddressText;
+#if UNITY_EDITOR
+    UdpClient _udpClient;
+    Thread _receiveThread;
+    string _ipAddressText;
+    int _index = 0;
+
+    public int Index { get => _index; set => _index = value; }
+
     void Start()
     {
-        Debug.Log("UDPHostManager is running, IP:" + ipAddressText != null ? "IP Address: " + NetTool.GetLocalIPAddress() : "No Text component assigned to display the IP address.");
-        udpClient = new UdpClient(NetTool.port);
-        receiveThread = new Thread(new ThreadStart(ReceiveData))
+        Debug.Log("IP:" + _ipAddressText != null ? "UDPHostManager is started, IP Address: " + NetTool.GetLocalIPAddress() : "No Text component assigned to display the IP address.");
+        _udpClient = new UdpClient(NetTool.port);
+        _receiveThread = new Thread(new ThreadStart(ReceiveData))
         {
             IsBackground = true
         };
-        receiveThread.Start();
+        _receiveThread.Start();
     }
 
     void ReceiveData()
@@ -29,9 +35,11 @@ public class UDPHostManager : MonoBehaviour
         {
             try
             {
-                byte[] data = udpClient.Receive(ref remoteEndPoint);
+                byte[] data = _udpClient.Receive(ref remoteEndPoint);
                 string message = Encoding.UTF8.GetString(data);
                 Debug.Log("Message received: " + message);
+                //display current time and index
+                Index++;
             }
             catch (Exception)
             {
@@ -41,10 +49,11 @@ public class UDPHostManager : MonoBehaviour
     }
     void OnApplicationQuit()
     {
-        if (receiveThread != null)
+        if (_receiveThread != null)
         {
             Debug.Log("UDPHostManager is closing.");
-            receiveThread.Abort();
+            _receiveThread.Abort();
         }
     }
+#endif
 }
