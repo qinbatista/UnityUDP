@@ -38,8 +38,16 @@ public class UDPHostManager : Singleton<UDPHostManager>
                 byte[] data = _udpClient.Receive(ref remoteEndPoint);
                 string message = Encoding.UTF8.GetString(data);
                 Debug.Log("Message received: " + message);
-                //display current time and index
-                Index++;
+
+                switch (message[0])
+                {
+                    case '0':
+                        Index++;
+                        break;
+                    case '+':
+                        // Index += int.Parse(message.Substring(1));
+                        break;
+                }
             }
             catch (Exception)
             {

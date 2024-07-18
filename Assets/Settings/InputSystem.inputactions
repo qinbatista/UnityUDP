@@ -6,9 +6,18 @@
             "id": "3fff175f-57a1-4e6e-b100-fd0d08ff58b0",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "TouchDelta",
                     "type": "Value",
                     "id": "9300fe52-9da5-42ff-afd2-fa8f82ae63dd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TouchPosition",
+                    "type": "Value",
+                    "id": "ce3f9959-238e-4e61-8300-757c5f7bb5f1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -19,11 +28,22 @@
                 {
                     "name": "",
                     "id": "82caa265-d93c-4591-91d1-d26790feb615",
-                    "path": "",
+                    "path": "<Touchscreen>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "TouchDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9ad9e6b-8038-4810-9086-7908a64c83a7",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
