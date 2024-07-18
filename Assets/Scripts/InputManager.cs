@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,12 +7,7 @@ public class InputManager : Singleton<InputManager>
     Vector2 _touchDeltaVector;
     Vector2 _touchPositionVector;
     RaycastHit _clickRayHit;
-    void Start()
-    {
-
-    }
-
-
+    StringBuilder _stringBuilder = new StringBuilder();
     public void TouchPosition(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -42,6 +38,15 @@ public class InputManager : Singleton<InputManager>
         {
             _touchDeltaVector = context.ReadValue<Vector2>();
             Debug.Log("TouchMove _touchDeltaVector=" + _touchDeltaVector);
+#if UNITY_EDITOR
+            UDPHostManager.Instance.TouchDeltaVector = _touchDeltaVector;
+#elif UNITY_ANDROID || UNITY_IOS
+            _stringBuilder.Clear();
+            _stringBuilder.Append("1");
+            _stringBuilder.Append(_touchDeltaVector.x + "," + _touchDeltaVector.y);
+            UDPClientManager.Instance.SendData(_stringBuilder.ToString());
+            UDPHostManager.Instance.TouchDeltaVector=_touchDeltaVector;
+#endif
         }
     }
 }

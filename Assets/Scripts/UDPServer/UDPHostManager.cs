@@ -9,12 +9,13 @@ using UnityEngine.UI;
 
 public class UDPHostManager : Singleton<UDPHostManager>
 {
+    public Vector2 TouchDeltaVector { get => _touchDeltaVector; set => _touchDeltaVector = value; }
+    int _index = 0;
+    Vector2 _touchDeltaVector;
 #if UNITY_EDITOR
     UdpClient _udpClient;
     Thread _receiveThread;
     string _ipAddressText;
-    int _index = 0;
-
     public int Index { get => _index; set => _index = value; }
 
     void Start()
@@ -44,8 +45,10 @@ public class UDPHostManager : Singleton<UDPHostManager>
                     case '0':
                         Index++;
                         break;
-                    case '+':
-                        // Index += int.Parse(message.Substring(1));
+                    case '1':
+                        string[] vector2 = message.Substring(1).Split(',');
+                        TouchDeltaVector = new Vector2(float.Parse(vector2[0]), float.Parse(vector2[1]));
+                        Debug.Log("direction=" + TouchDeltaVector);
                         break;
                 }
             }
